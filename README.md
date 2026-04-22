@@ -109,7 +109,7 @@ preferencia_score= (prefs coincidentes  / prefs del usuario)     × 100 × 0.30
 - Discord sólo es visible entre jugadores con match `activo`
 
 
-## 👥 Integraciones Externas
+## Integraciones Externas
 
 ### Clerk
 - Gestiona registro, login y sesiones
