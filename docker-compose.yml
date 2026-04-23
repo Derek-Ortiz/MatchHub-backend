@@ -1,0 +1,47 @@
+version: '3.8'
+
+services:
+  db:
+    image: postgres:15-alpine
+    container_name: matchhub-db
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: matchhub_user
+      POSTGRES_PASSWORD: matchhub_secret
+      POSTGRES_DB: matchhub_db
+    ports:
+      - "5432:5432"
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - pgdata:/var/lib/postgresql/data
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: matchhub-api
+    restart: unless-stopped
+    ports:
+      - "3001:3001"
+    environment:
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_SSL=${DB_SSL}
+      - DB_SSL_REJECT_UNAUTHORIZED=${DB_SSL_REJECT_UNAUTHORIZED}
+      - CLERK_SECRET_KEY=${CLERK_SECRET_KEY}
+      - CLERK_PUBLISHABLE_KEY=${CLERK_PUBLISHABLE_KEY}
+      - RAWG_API_KEY=${RAWG_API_KEY}
+      - RAWG_BASE_URL=${RAWG_BASE_URL}
+      - DICEBEAR_BASE_URL=${DICEBEAR_BASE_URL}
+      - NODE_ENV=${NODE_ENV}
+      - PORT=${PORT}
+      - ALLOWED_ORIGINS=${ALLOWED_ORIGINS}
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+volumes:
+  pgdata:
