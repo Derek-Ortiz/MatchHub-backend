@@ -17,7 +17,7 @@ const env = {
   DICEBEAR_BASE_URL: process.env.DICEBEAR_BASE_URL,
   ALLOWED_ORIGINS: process.env.ALLOWED_ORIGINS
     ? process.env.ALLOWED_ORIGINS.split(',')
-    : ['http://localhost:5173'],
+    : ['http://localhost:3000'],
 };
 
 const required = [
